@@ -1,0 +1,26 @@
+# Kitsune Development Tasks
+
+- [x] Initialize Vite React TypeScript project
+- [x] Install required parsing and styling dependencies
+- [x] Implement utility modules
+  - [x] `detect.ts`: Heuristic file format auto-detect from content
+  - [x] `parsers.ts`: Validation and syntax check for XML, JSON, Properties, YAML, TOML, HTML
+  - [x] `formatters.ts`: Format and Minify logic per format
+  - [x] `comments.ts`: Strip comments per format
+  - [x] `converters.ts`: Bidirectional conversion matching compatibility matrix
+  - [x] `diff.ts`: Focused line-based diff calculation
+- [x] Create reusable UI components
+  - [x] `CodeEditor.tsx`: Wrapper for CodeMirror 6 with format selection and auto-detect
+  - [x] `ActionPanel.tsx`: Format, Minify, Validate, Remove Comments, Convert layout
+  - [x] `DiffResult.tsx`: Focused differences presenter
+  - [x] `Toast.tsx`: Toast warning/error notifications
+- [x] Build Main Layout & Pages
+  - [x] `Header.tsx`: Theme layout logo and navigation tabs (Editor / Compare)
+  - [x] `EditorTab.tsx`: Integrates main editor, validation state, and action panels
+  - [x] `CompareTab.tsx`: Integrates dual editors and DiffResult
+  - [x] `App.tsx`: Navigation manager, toast registry, and central state
+- [x] Design System & Styling
+  - [x] `index.css`: Glassmorphic layout, orange/gold color variables, dark theme accents, micro-animations
+- [x] Verification and Testing
+  - [x] Add unit tests (Vitest) for parser helper operations and conversions
+  - [x] Perform manual testing of conversions, validation, comment removal, and diffing
