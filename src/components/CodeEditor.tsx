@@ -4,6 +4,7 @@ import { json } from '@codemirror/lang-json';
 import { xml } from '@codemirror/lang-xml';
 import { yaml } from '@codemirror/lang-yaml';
 import { html } from '@codemirror/lang-html';
+import { markdown } from '@codemirror/lang-markdown';
 import type { FileFormat } from '../utils/detect';
 import { EditorView } from '@codemirror/view';
 
@@ -48,6 +49,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         break;
       case 'html':
         exts.push(html());
+        break;
+      case 'markdown':
+        exts.push(markdown());
         break;
     }
     return exts;
@@ -104,7 +108,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         </div>
         
         <div className="editor-controls">
-          {!readOnly && (
+          {!readOnly && format !== 'markdown' && (
             <div className="format-selector-wrapper">
               <select
                 className="format-dropdown"

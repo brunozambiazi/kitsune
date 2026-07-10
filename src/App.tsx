@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Header } from './components/Header';
 import { EditorTab } from './components/EditorTab';
 import { CompareTab } from './components/CompareTab';
+import { MarkdownTab } from './components/MarkdownTab';
 import { ToastList } from './components/Toast';
 import type { ToastMessage } from './components/Toast';
 import type { FileFormat } from './utils/detect';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'editor' | 'compare'>('editor');
+  const [activeTab, setActiveTab] = useState<'editor' | 'compare' | 'markdown'>('editor');
   
   // Shared state for the Editor Tab
   const [editorValue, setEditorValue] = useState<string>('');
@@ -35,7 +36,7 @@ function App() {
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
       
       <main className="app-main-content">
-        {activeTab === 'editor' ? (
+        {activeTab === 'editor' && (
           <EditorTab
             value={editorValue}
             onChange={setEditorValue}
@@ -47,10 +48,16 @@ function App() {
             setValidationStatus={setValidationStatus}
             onShowToast={addToast}
           />
-        ) : (
+        )}
+        {activeTab === 'compare' && (
           <CompareTab
             mainEditorValue={editorValue}
             mainEditorFormat={editorFormat}
+            onShowToast={addToast}
+          />
+        )}
+        {activeTab === 'markdown' && (
+          <MarkdownTab
             onShowToast={addToast}
           />
         )}

@@ -262,6 +262,8 @@ export function validateAndParse(content: string, format: FileFormat): ParseResu
       return parseProperties(content);
     case 'html':
       return parseHTML(content);
+    case 'markdown':
+      return { isValid: true, parsed: content };
     default:
       return { isValid: false, error: 'Unknown format' };
   }

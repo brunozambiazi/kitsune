@@ -3,6 +3,7 @@ import { stringify as stringifyToml } from 'smol-toml';
 import { XMLBuilder } from 'fast-xml-parser';
 import type { FileFormat } from './detect';
 import { validateAndParse } from './parsers';
+import { formatMarkdown } from './markdownFormatter';
 
 /**
  * Formats (prettifies) the content based on type and indent size.
@@ -46,6 +47,9 @@ export function prettify(content: string, format: FileFormat, indentSize: number
 
     case 'html':
       return prettifyHTML(content, indentSize);
+
+    case 'markdown':
+      return formatMarkdown(content);
 
     default:
       return content;

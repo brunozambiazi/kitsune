@@ -4,6 +4,7 @@ import { validateAndParse } from './parsers';
 import { removeComments } from './comments';
 import { convertFormat } from './converters';
 import { calculateDiff } from './diff';
+import { formatMarkdown } from './markdownFormatter';
 
 describe('Format Auto-detection', () => {
   it('should detect JSON', () => {
@@ -157,5 +158,64 @@ describe('Focused Line Diffing', () => {
     expect(diff.some(l => l.type === 'unchanged' && l.content === 'line 2')).toBe(true);
     // Unchanged line 5 is skipped, so not directly in output as 'unchanged'
     expect(diff.some(l => l.type === 'unchanged' && l.content === 'line 5')).toBe(false);
+  });
+});
+
+describe('Markdown Formatting', () => {
+  it('should format headings, lists, blockquotes, and collapse empty lines', () => {
+    const raw = `
+#Heading 1
+Some paragraph text.
+
+##Heading 2
+-List item 1
+-List item 2
+•List item 3
+• List item 4
+
+>Quote text
+>More quote
+`;
+    const expected = `# Heading 1
+Some paragraph text.
+
+## Heading 2
+- List item 1
+- List item 2
+- List item 3
+- List item 4
+
+> Quote text
+> More quote`;
+    expect(formatMarkdown(raw)).toBe(expected);
+  });
+
+  it('should ignore formatting inside code blocks', () => {
+    const raw = `
+# Head
+\`\`\`javascript
+const x = 1;
+# No heading format here
+- No list item format
+\`\`\`
+`;
+    const expected = `# Head
+
+\`\`\`javascript
+const x = 1;
+# No heading format here
+- No list item format
+\`\`\``;
+    expect(formatMarkdown(raw)).toBe(expected);
+  });
+
+  it('should replace literal \\n with actual newlines', () => {
+    const raw = '# Title\\n\\nThis is a paragraph.\\n- List item 1\\n- List item 2';
+    const expected = `# Title
+
+This is a paragraph.
+- List item 1
+- List item 2`;
+    expect(formatMarkdown(raw)).toBe(expected);
   });
 });

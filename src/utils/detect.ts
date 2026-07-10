@@ -1,7 +1,7 @@
 /**
  * Heuristic auto-detection of text formats: JSON, XML, HTML, TOML, Properties, YAML.
  */
-export type FileFormat = 'json' | 'xml' | 'html' | 'toml' | 'properties' | 'yaml';
+export type FileFormat = 'json' | 'xml' | 'html' | 'toml' | 'properties' | 'yaml' | 'markdown';
 
 export function detectFormat(content: string): FileFormat {
   const trimmed = content.trim();
